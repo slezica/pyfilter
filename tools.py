@@ -31,7 +31,7 @@ class NameDetector(ast.NodeVisitor):
         self.visit(expr)
         return self.names
 
-def detect_names(expr):
+def detect_variable_names(expr):
     return NameDetector().detect(ast.parse(expr))
 
 

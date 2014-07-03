@@ -7,14 +7,14 @@ from tools import *
 def execute(expr, stream):
     # Input handling mode (x: line, l: list of lines, i: one string) is
     # detected by variables used in the expression:
-    names   = detect_names(expr)
+    names   = detect_variable_names(expr)
     special = names.intersection({'x', 'l', 'i'})
 
     if len(special) > 1:
         abort("Only one of 'x', 'l' and 'i' can be used in the expression")
 
 
-    context = Context() # dict that auto-imports modules
+    context = Context() # dict with built-ins that auto-imports modules
     context.update(__builtins__.__dict__)
 
     if len(special) == 0: # ignore input stream
