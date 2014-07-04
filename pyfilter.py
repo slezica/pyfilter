@@ -1,15 +1,36 @@
 import sys, argparse, __builtin__
 
 import config
-from tools import error, collect_variable_names, Context
+from tools import error, evaluate, collect_variable_names, Context
 
 
-def evaluate(expr, context):
-    try:
-        return eval(expr, context)
+def cli():
+    parser = argparse.ArgumentParser()
 
-    except Exception as e:
-        error(exception = e, abort = not config.ignore_exceptions)
+    parser.add_argument("expression",
+        nargs   = '?',
+        default = 'None'
+    )
+
+    parser.add_argument("-c", "--condition",
+        action = 'store_true',
+        help   = "only print lines where expr is true"
+    )
+    
+    parser.add_argument('-i', '--ignore-exceptions',
+        action  = 'store_true',
+        help    = "skip items that raise exceptions"
+    )
+    
+    parser.add_argument('-b', '--before',
+        help = "run command before processing"
+    )
+
+    parser.add_argument('-a', '--after',
+        help = "run command after processing"
+    )
+
+    return parser.parse_args()
 
 
 def execute(expr, stream):
@@ -42,34 +63,6 @@ def execute(expr, stream):
             context['x'] = line.rstrip()
             yield evaluate(expr, context)
 
-
-def cli():
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument("expression",
-        nargs   = '?',
-        default = 'None'
-    )
-
-    parser.add_argument("-c", "--condition",
-        action = 'store_true',
-        help   = "only print lines where expr is true"
-    )
-    
-    parser.add_argument('-i', '--ignore-exceptions',
-        action  = 'store_true',
-        help    = "skip items that raise exceptions"
-    )
-    
-    parser.add_argument('-b', '--before',
-        help = "run command before processing"
-    )
-
-    parser.add_argument('-a', '--after',
-        help = "run command after processing"
-    )
-
-    return parser.parse_args()
 
 
 if __name__ == '__main__':

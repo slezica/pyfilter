@@ -1,6 +1,14 @@
 import sys, ast, config
 
 
+def evaluate(expr, context):
+    try:
+        return eval(expr, context)
+
+    except Exception as e:
+        error(exception = e, abort = not config.ignore_exceptions)
+
+
 def error(message = None, exception = None, abort = False):
     if exception:
         message = type(exception).__name__ + ": " + exception.message
