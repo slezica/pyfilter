@@ -1,9 +1,14 @@
 import sys, ast, config
 
 
-def abort(*message):
-    sys.stderr.write(' '.join(str(part) for part in message) + '\n')
-    sys.exit(1)
+def error(message = None, exception = None, abort = False):
+    if exception:
+        message = type(exception).__name__ + ": " + exception.message
+
+    sys.stderr.write(message + '\n')
+
+    if abort:
+        sys.exit(1)
 
 
 class Context(dict):

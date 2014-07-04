@@ -1,6 +1,7 @@
 import sys, argparse, __builtin__
 
 import config, tools
+from tools import error
 
 
 def evaluate(expr, context):
@@ -8,10 +9,7 @@ def evaluate(expr, context):
         return eval(expr, context)
 
     except Exception as e:
-        sys.stderr.write("%s: %s\n" % (e.__class__.__name__, e.message))
-
-        if not config.ignore_exceptions:
-            sys.exit(1)
+        error(exception = e, abort = not config.ignore_exceptions)
 
 
 def execute(expr, stream):
@@ -21,7 +19,7 @@ def execute(expr, stream):
     special = names.intersection({'x', 'l', 'i'})
 
     if len(special) > 1:
-        abort("Only one of 'x', 'l' and 'i' can be used in the expression")
+        error("Only one of 'x', 'l' and 'i' can be used", abort = True)
 
 
     context = tools.Context()
