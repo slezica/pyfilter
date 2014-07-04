@@ -1,7 +1,7 @@
 import sys, argparse, __builtin__
 
-import config, tools
-from tools import error
+import config
+from tools import error, collect_variable_names, Context
 
 
 def evaluate(expr, context):
@@ -15,14 +15,14 @@ def evaluate(expr, context):
 def execute(expr, stream):
     # Input handling mode (x: line, l: list of lines, i: one string) is
     # detected by variables used in the expression:
-    names   = tools.collect_variable_names(expr)
+    names   = collect_variable_names(expr)
     special = names.intersection({'x', 'l', 'i'})
 
     if len(special) > 1:
         error("Only one of 'x', 'l' and 'i' can be used", abort = True)
 
 
-    context = tools.Context()
+    context = Context()
     context.update(__builtin__.__dict__)
 
     if len(special) == 0: # ignore input stream
