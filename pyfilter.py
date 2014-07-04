@@ -8,12 +8,10 @@ def evaluate(expr, context):
         return eval(expr, context)
 
     except Exception as e:
-        sys.stderr.write(str(e) + '\n')
+        sys.stderr.write("%s: %s\n" % (e.__class__.__name__, e.message))
 
-        if config.ignore_exceptions:
-            return None
-
-        sys.exit(1)
+        if not config.ignore_exceptions:
+            sys.exit(1)
 
 
 def execute(expr, stream):
