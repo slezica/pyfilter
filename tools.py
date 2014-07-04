@@ -33,16 +33,3 @@ class NameDetector(ast.NodeVisitor):
 
 def detect_variable_names(expr):
     return NameDetector().detect(ast.parse(expr))
-
-
-def evaluate(expr, context):
-    try:
-        return eval(expr, context)
-
-    except Exception as e:
-        sys.stderr.write(str(e) + '\n')
-
-        if config.ignore_exceptions:
-            return None
-
-        sys.exit(1)
