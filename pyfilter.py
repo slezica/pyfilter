@@ -39,7 +39,7 @@ def execute(expr, stream):
     special = names.intersection({'x', 'l', 'i'})
 
     if len(special) > 1:
-        error("Only one of 'x', 'l' and 'i' can be used", abort = True)
+        error("Only one of 'x', 'l' and 'i' can be used")
 
 
     context = Context()

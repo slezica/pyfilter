@@ -1,17 +1,11 @@
 import sys, ast, config
 
 
-def evaluate(expr, context):
-    try:
-        return eval(expr, context)
+def error(err, abort = True):
+    message = str(err)
 
-    except Exception as e:
-        error(exception = e, abort = not config.ignore_exceptions)
-
-
-def error(message = None, exception = None, abort = False):
-    if exception:
-        message = type(exception).__name__ + ": " + exception.message
+    if isinstance(err, Exception):
+        message = type(err).__name__ + ": " + message
 
     sys.stderr.write(message + '\n')
 
@@ -38,5 +32,18 @@ class NameCollector(ast.NodeVisitor):
         self.visit(expr)
         return self.names
 
+
 def collect_variable_names(expr):
-    return NameCollector().detect(ast.parse(expr))
+    try:
+        return NameCollector().detect(ast.parse(expr))
+
+    except SyntaxError:
+        error("SyntaxError: " + expr)
+
+
+def evaluate(expr, context):
+    try:
+        return eval(expr, context)
+
+    except Exception as e:
+        error(e, abort = not config.ignore_exceptions)
