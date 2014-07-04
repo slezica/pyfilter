@@ -7,16 +7,10 @@ def abort(*message):
 
 
 class Context(dict):
-    "Global dictionary for eval(). Has built-ins and imports modules lazily."
+    "Global dictionary for eval(). Imports modules lazily."
 
     def __missing__(self, key):
-        if key in __builtins__:
-            return __builtins__[key]
-
-        try:
-            return __import__(key)
-        except ImportError:
-            abort("%s should be a built-in, variable or module" % key)
+        return __import__(key)
 
 
 class NameDetector(ast.NodeVisitor):

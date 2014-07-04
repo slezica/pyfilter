@@ -1,4 +1,4 @@
-import sys, argparse
+import sys, argparse, __builtin__
 
 import config, tools
 
@@ -25,6 +25,7 @@ def execute(expr, stream):
 
 
     context = tools.Context()
+    context.update(__builtin__.__dict__)
 
     if len(special) == 0: # ignore input stream
         yield evaluate(expr, context)
