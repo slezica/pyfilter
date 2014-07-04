@@ -13,8 +13,7 @@ def evaluate(expr, context):
 
 
 def execute(expr, stream):
-    # Input handling mode (x: line, l: list of lines, i: one string) is
-    # detected by variables used in the expression:
+    # Input hanlding mode is auto-detected from variables used in expression
     names   = collect_variable_names(expr)
     special = names.intersection({'x', 'l', 'i'})
 
@@ -28,8 +27,7 @@ def execute(expr, stream):
     if len(special) == 0: # ignore input stream
         yield evaluate(expr, context)
 
-    # The only item in special is 'x', 'l' or 'i':
-    (mode,) = special
+    mode = special.pop()
 
     if mode == 'i':
         context['i'] = stream.read()
