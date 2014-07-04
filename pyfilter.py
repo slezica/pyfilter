@@ -15,7 +15,7 @@ def evaluate(expr, context):
 def execute(expr, stream):
     # Input handling mode (x: line, l: list of lines, i: one string) is
     # detected by variables used in the expression:
-    names   = tools.detect_variable_names(expr)
+    names   = tools.collect_variable_names(expr)
     special = names.intersection({'x', 'l', 'i'})
 
     if len(special) > 1:
