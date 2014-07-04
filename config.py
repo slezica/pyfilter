@@ -1,7 +1,7 @@
 # These values will be overridden by user-selected ones.
 
 # Skip items that cause exceptions:
-ignore_exceptions = True
+ignore_exceptions = False
 
 # Use expression as filter, and print passing lines:
 condition = False
