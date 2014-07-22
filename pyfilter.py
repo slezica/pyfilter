@@ -47,6 +47,7 @@ def execute(expr, stream):
 
     if len(special) == 0: # ignore input stream
         yield evaluate(expr, context)
+        return
 
     mode = special.pop()
 
