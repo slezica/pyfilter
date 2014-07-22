@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 import sys, argparse, __builtin__
 
 from tools import error, evaluate, collect_variable_names, Context, config
