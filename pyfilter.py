@@ -1,10 +1,9 @@
 import sys, argparse, __builtin__
 
-import config
-from tools import error, evaluate, collect_variable_names, Context
+from tools import error, evaluate, collect_variable_names, Context, config
 
 
-def cli():
+def parse_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("expression",
@@ -30,7 +29,7 @@ def cli():
         help = "run command after processing"
     )
 
-    return parser.parse_args()
+    return parser.parse_args().__dict__
 
 
 def execute(expr, stream):
@@ -67,10 +66,10 @@ def execute(expr, stream):
 
 
 if __name__ == '__main__':
-    args = cli()
+    args = parse_args()
     config.update(args)
 
-    results = execute(args.expression, sys.stdin)
+    results = execute(args['expression'], sys.stdin)
 
     for result in results:
         if result is not None:

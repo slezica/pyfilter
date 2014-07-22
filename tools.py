@@ -1,4 +1,12 @@
-import sys, ast, config
+import sys, ast
+
+
+config = dict(
+    before            = None,
+    after             = None,
+    condition         = False,
+    ignore_exceptions = False,
+)
 
 
 def error(err, abort = True):
@@ -46,4 +54,4 @@ def evaluate(expr, context):
         return eval(expr, context)
 
     except Exception as e:
-        error(e, abort = not config.ignore_exceptions)
+        error(e, abort = not config['ignore_exceptions'])
