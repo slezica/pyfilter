@@ -35,10 +35,10 @@ def parse_args():
 def execute(expr, stream):
     # Input hanlding mode is auto-detected from variables used in expression
     names   = collect_variable_names(expr)
-    special = names.intersection({'x', 'l', 'i'})
+    special = names.intersection({'line', 'lines', 'input'})
 
     if len(special) > 1:
-        error("Only one of 'x', 'l' and 'i' can be used")
+        error("Only one of 'line', 'lines' and 'input' can be used")
 
 
     context = Context()
@@ -50,17 +50,17 @@ def execute(expr, stream):
 
     mode = special.pop()
 
-    if mode == 'i':
-        context['i'] = stream.read()
+    if mode == 'input':
+        context['input'] = stream.read()
         yield evaluate(expr, context)
 
-    elif mode == 'l':
-        context['l'] = stream.read().split('\n')
+    elif mode == 'lines':
+        context['lines'] = stream.read().split('\n')
         yield evaluate(expr, context)
 
-    elif mode == 'x':
+    elif mode == 'line':
         for line in stream:
-            context['x'] = line.rstrip()
+            context['line'] = line.rstrip()
             yield evaluate(expr, context)
 
 
