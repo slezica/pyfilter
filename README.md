@@ -3,7 +3,7 @@
 Python for command-line pipelines
 
 
-# basic usage
+# Basic usage
 
 With no input or flags, `py` executes inline python expresions:
 
@@ -13,10 +13,10 @@ With no input or flags, `py` executes inline python expresions:
     $ py 'base64.encodestring("Hello")'
     SGVsbG8=
 
-Modules are imported automatically, including from the current directory.
+Modules are imported automatically, including the current directory.
 
 
-# processing input
+# Processing input
 
 `py` has three input handling modes, selected automatically when special
 variable names are used in the expression:
@@ -31,5 +31,6 @@ Variable | Input mode
 
 These enable idioms like:
 
-    $ ... | py 'line.replace("foo", "bar")' # word replace
+    $ ... | py 'line.replace("foo", "bar")'         # word replace
     $ ... | py 'max(lines, key = lambda l: len(l))' # longest line
+    $ ... | py 'binascii.hexlify(input)'            # encode in hex
