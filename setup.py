@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name     = 'pyfilter',
     url      = 'http://github.com/slezica/pyfilter',
-    version  = '0.9.0',
+    version  = '1.0.0',
     packages = ['pyfilter'],
     scripts  = ['bin/py'],
 
