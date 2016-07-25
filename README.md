@@ -1,6 +1,8 @@
 # py
 
-Python for command-line pipelines
+Quick python for command-line pipe-fu
+
+    pip install quickpy
 
 
 # Basic usage

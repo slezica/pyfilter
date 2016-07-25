@@ -1,0 +1,1 @@
+from .quickpy import main

@@ -1,14 +1,14 @@
 from distutils.core import setup
 
 setup(
-    name     = 'pyfilter',
-    url      = 'http://github.com/slezica/pyfilter',
+    name     = 'quickpy',
+    url      = 'http://github.com/slezica/quick-py',
     version  = '1.0.0',
-    packages = ['pyfilter'],
+    packages = ['quickpy'],
     scripts  = ['bin/py'],
 
     author       = 'Santiago Lezica',
-    author_email = 'slezica89@gmail.com',
+    author_email = 'salezica@gmail.com',
 
-    description = 'Python for command-line pipelines',
+    description = 'Quick python for command-line pipelines',
 )
